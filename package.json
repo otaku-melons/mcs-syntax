@@ -1,0 +1,29 @@
+{
+	"name": "mcs-syntax",
+	"displayName": "MCS Syntax",
+	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/otaku-melons/mcs-syntax"
+	},
+	"engines": {
+		"vscode": "^1.80.0"
+	},
+	"contributes": {
+		"languages": [
+			{
+				"id": "mcs",
+				"extensions": [
+					".mcs"
+				]
+			}
+		],
+		"grammars": [
+			{
+				"language": "mcs",
+				"scopeName": "source.mcs",
+				"path": "./syntaxes/mcs.tmLanguage.json"
+			}
+		]
+	}
+}

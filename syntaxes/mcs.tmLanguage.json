@@ -1,0 +1,88 @@
+{
+	"scopeName": "source.mcs",
+	"patterns": [
+		{
+			"match": "^\\s*(#).*$",
+			"name": "comment.line.number-sign.mcs",
+			"captures": {
+				"1": { "name": "punctuation.definition.comment.mcs" }
+			}
+		},
+		{
+			"begin": "^\\s*(@)(delete|drop|case|include|register|type)\\b",
+			"beginCaptures": {
+				"1": { "name": "keyword.operator.mcs" },
+				"2": { "name": "entity.name.type.class.mcs" }
+			},
+			"end": "$",
+			"patterns": [
+				{
+					"begin": "\\G\\[",
+					"beginCaptures": {
+						"0": { "name": "punctuation.definition.brackets.begin.mcs" }
+					},
+					"end": "(\\])\\s*$|(?=$)",
+					"endCaptures": {
+						"1": { "name": "punctuation.definition.brackets.end.mcs" }
+					},
+					"patterns": [
+						{
+							"match": "(?<=@delete\\[)\\s*(?=\\])"
+						},
+						{
+							"match": "(?<=@drop\\[)[^\\]]+",
+							"captures": {
+								"0": {
+									"patterns": [
+										{ "match": "\\b(case|delete|type)\\b", "name": "variable.other.property.mcs" },
+										{ "match": ",", "name": "punctuation.separator.comma.mcs" },
+										{ "match": "[^,\\s]+", "name": "invalid.illegal.property.mcs" }
+									]
+								}
+							}
+						},
+						{
+							"match": "(?<=@case\\[)\\s*(low|title|up)?\\s*(?=\\])",
+							"captures": {
+								"1": { "name": "variable.other.property.mcs" }
+							}
+						},
+						{
+							"match": "(?<=@include\\[)\\s*([^\\]\\s][^\\]]*?)\\s*(?=\\])",
+							"captures": {
+								"1": { "name": "variable.other.property.mcs" }
+							}
+						},
+						{
+							"match": "(?<=@type\\[)\\s*(franchises|genres|persons|tags)\\s*(?=\\])",
+							"captures": {
+								"1": { "name": "variable.other.property.mcs" }
+							}
+						},
+						{
+							"match": "[^\\]]+",
+							"name": "invalid.illegal.property.mcs"
+						}
+					]
+				},
+				{
+					"match": "\\S+",
+					"name": "invalid.illegal.property.mcs"
+				}
+			]
+		},
+		{ "match": "^\\s*@.*$", "name": "invalid.illegal.directive.mcs" },
+		{
+			"match": "^(?!\\s*@)\\s*((?:[^\\s\"'>]+|\"(?:\\\\.|[^\"])*\"|'(?:\\\\.|[^'])*')+?)\\s*(>)\\s*((?:[^\\s\"'>]+|\"(?:\\\\.|[^\"])*\"|'(?:\\\\.|[^'])*')+?)\\s*$",
+			"captures": {
+				"1": { "name": "string.unquoted.mcs" },
+				"2": { "name": "keyword.operator.mcs" },
+				"3": { "name": "string.unquoted.mcs" }
+			}
+		},
+		{
+			"match": "^(?!\\s*@).+$",
+			"name": "string.unquoted.mcs"
+		}
+	]
+}
